@@ -1,0 +1,51 @@
+{%extends 'base.html'%}
+
+{%block content%}
+    <section class="post">
+    <div class="post__container container">
+        <div class="post__content">
+            <h2 class="post__title">{{ post.title }}</h2>
+            <p class="post__author">Автор: {{ post.author }}</p>
+            <p class="post__author">Дата и время публикации: {{ post.posted_at }}</p>
+            <p class="post__text">Информация: {{ post.text }}</p>
+            <p class="post__likes">
+                Лайки: {{ post.total_likes }}
+            </p>
+
+            <form method="post" action="{% url 'like_post' pk=post.pk %}" class="post__like-form">
+                {% csrf_token %}
+                <button type="submit" class="post__like-button">
+                    {% if user in post.likes.all %}
+                        Убрать лайк
+                    {% else %}
+                        Поставить лайк
+                    {% endif %}
+                </button>
+            </form>
+
+            <a href="{% url 'createcomment' post.id %}" class="post__comment-link">Написать комментарий</a>
+
+            <h2 class="post__comments-title">Комментарии</h2>
+            <div class="post__comments">
+                {% for comment in comments_list %}
+                    <div class="post__comment">
+                        <strong class="post__comment-author">{{ comment.author }}</strong>:
+                        <span class="post__comment-text">{{ comment.text }}</span>
+                        {% if user == comment.author %}
+                            <div class="post__comment-actions">
+                                <a href="{%url 'updatecomment' comment.id %}" class="post__comment-edit">Редактировать</a>
+                                <a href="{%url 'deletecomment' comment.id %}" class="post__comment-delete">Удалить</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            {% if user == post.author %}
+                <a href="{% url 'deletepost' pk=post.pk %}" class="post__delete-link">Удалить пост</a>
+            {% endif %}
+        </div>
+    </div>
+    </section>
+
+{%endblock%}

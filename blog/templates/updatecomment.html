@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+
+{% block title %} Изменение комментария {% endblock %}
+
+{%block content%}
+    <section>
+        <div class="container">
+            <div class="form__inner">
+                <h2>Изменение комментария</h2>
+                {% if user.is_authenticated %}
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Изменить</button>
+                </form>
+                {% else %}
+                    <p>Нужно выполнить вход</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+{%endblock%}

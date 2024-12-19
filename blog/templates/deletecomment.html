@@ -1,0 +1,18 @@
+{%extends 'base.html'%}
+
+{% block title %} Удаление комментария {% endblock %}
+
+{%block content%}
+  <section>
+    <div class="container">
+      <div class="form__inner">
+        <h2>Удаление комментария</h2>
+
+        <form action="" method="POST">
+          {% csrf_token %}
+          <button>Подтвердить</button>
+        </form>
+      </div>
+    </div>
+  </section>
+{%endblock%}

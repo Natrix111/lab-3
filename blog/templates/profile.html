@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} Профиль {% endblock %}
+
+{% block content %}
+
+  <section class="profile">
+    <div class="profile__container container">
+        <div class="profile__inner">
+            <h2 class="profile__title">Профиль пользователя {{ user.username }}</h2>
+
+            {% if user.is_superuser %}
+                <p class="profile__admin">Вы администратор данного сайта</p>
+            {% else %}
+                <div class="profile__content">
+                    <img src="{{ user.avatar.url }}" alt="Аватар пользователя" class="profile__avatar">
+                    <p class="profile__info">Имя: {{ user.name }}</p>
+                    <p class="profile__bio">О себе: {{ user.info }}</p>
+                </div>
+            {% endif %}
+            <div class="profile__actions">
+                <a href="{% url 'deleteuser' %}" class="profile__action profile__action--delete">Удалить профиль</a>
+                <a href="{% url 'updateprofile' user.id %}" class="profile__action profile__action--edit">Изменить профиль</a>
+            </div>
+        </div>
+    </div>
+  </section>
+
+{% endblock %}

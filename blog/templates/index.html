@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+
+{%block content%}
+    <section>
+        <div class="container">
+            <div class="form__inner">
+                <h2>Посты</h2>
+                {% if post_list %}
+                    {%for post in post_list%}
+                        <a href="{%url 'post' post.id %}" class="card">
+                            <div class="post">
+                                <b>{{post.title}}</b>
+                                <p>{{post.author}}</p>
+                            </div>
+                        </a>
+                    {%endfor%}
+                {%endif%}
+            </div>
+        </div>
+    </section>
+
+{%endblock%}
